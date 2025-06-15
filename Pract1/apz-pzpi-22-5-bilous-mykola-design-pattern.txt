@@ -1,0 +1,250 @@
+Міністерство освіти та науки України
+Харківський національний університет радіоелектроніки
+
+
+
+
+
+Практична робота №1
+з дисципліни: «Архітектура програмного забезпечення»
+
+
+
+
+
+
+
+
+
+
+Виконав
+ст. гр. ПЗПІ-22-5
+Білоус Микола Олексійович
+
+Перевірив 
+ст. викл. Сокорчук І. П.
+
+
+
+
+Харків 2025
+1 ІСТОРІЯ ЗМІН
+
+№	Дата	Версія звіту	Опис змін та виправлень
+1	28.04.2025	0.1	Створено розділ «Завдання»
+2	30.04.2025	0.2	Створено розділи «Опис виконаної роботи» та «Висновки»
+3	1.05.2025	0.3	Створено «Додаток Б» та «Додаток В»
+4	13.06.2025	0.4	Створено «Додаток А»
+ 
+2 ЗАВДАННЯ
+
+1. Підготувати доповідь на тему: «Шаблон (патерн) проєктування ПЗ»
+2. Створити та оформити слайди презентації доповіді
+3. Створити та опублікувати на YouTube відеозапис доповіді
+4. Оформити та завантажити на dl.nure.ua звіт до виконаної роботи
+ 
+3 ОПИС ВИКОНАНОЇ РОБОТИ
+
+1. У ході практичного заняття було підготовано доповідь на тему "Шаблон проєктування програмного забезпечення Ланцюжок обов’язків".
+2. Було створено та оформлено слайди презентації доповіді.
+3. Було створено та опубліковано на YouTube відеозапис піготованої доповіді.
+ 
+4 ВИСНОВКИ
+
+В результаті виконання практичного заняття було створено доповідь на тему "Шаблон проєктування програмного забезпечення Ланцюжок обов’язків". Були досліджені основні шаблони проектування програмного забезпечення а також переваги їхнього використання. Були розглянуті принципи роботи шаблона програмного забезпечення Ланцюжок обов’язків, його переваги та недоліки, а також, як він допомагає обробляти різноманітні запити різними способами, коли типи запитів та їх послідовність заздалегідь невідомі.
+ 
+ДОДАТОК А
+
+Відеозапис доповіді на YouTube: https://youtu.be/8mhYAogwEpE.
+Хронологічний опис відеодоповіді:
+	
+00:00 - Вступ 
+00:14 - Що таке "Ланцюжок обов'язків" 
+01:00 - Проблема, яку вирішує шаблон 
+02:00 - Структура шаблону 
+02:56 - Принцип роботи 
+03:45 - Переваги шаблону 
+04:32 - Недоліки шаблону 
+05:20 - Коли використовувати шаблон 
+06:22 - Приклад: Без використання шаблону 
+07:13 - Приклад: З використанням шаблону 
+07:37 - Висновки  
+ДОДАТОК Б
+
+Слайди створеної презентації
+
+ 
+Рисунок Б.1 – Титульний слайд
+
+ 
+Рисунок Б.2 – Що таке «Ланцюжок Обов'язків»
+
+ 
+Рисунок Б.3 – Проблема, яку вирішує шаблон
+
+ 
+Рисунок Б.4 – Структура шаблону (UML)
+
+ 
+Рисунок Б.5 – Принцип роботи
+
+ 
+Рисунок Б.6 – Переваги шаблону
+
+ 
+Рисунок Б.7 – Недоліки шаблону
+
+ 
+Рисунок Б.8 – Коли використовувати шаблон
+
+ 
+Рисунок Б.9 – Приклад коду: Без використання шаблону (TypeScript)
+
+ 
+Рисунок Б.10 – Приклад коду: З використанням шаблону (TypeScript)
+
+ 
+Рисунок Б.11 – Висновки
+ 
+Додаток В
+
+Код без використання шаблону
+
+1  interface SupportRequest {
+2    type: "technical" | "billing" | "general" | "unknown";
+3    description: string;
+4    id: number;
+5  }
+6  
+7  function processSupportRequestWithoutPattern(request: SupportRequest): string {
+8    console.log(`Processing request ID ${request.id} ("${request.description}") without pattern...`);
+9    if (request.type === "technical") {
+10     // Імітація складної логіки обробки
+11     return `Technical Support: Resolved issue "${request.description}" for request ID ${request.id}.`;
+12   } else if (request.type === "billing") {
+13     // Імітація складної логіки обробки
+14     return `Billing Support: Processed payment for "${request.description}" for request ID ${request.id}.`;
+15   } else if (request.type === "general") {
+16     // Імітація складної логіки обробки
+17     return `General Inquiry: Provided information for "${request.description}" for request ID ${request.id}.`;
+18   } else {
+19     return `System: Request ID ${request.id} ("${request.description}") of type "${request.type}" could not be handled.`;
+20   }
+21 }
+22 
+23 // Приклад використання
+24 const requestsWithoutPattern: SupportRequest[] = [
+25   { id: 1, type: "technical", description: "Printer not working" },
+26   { id: 2, type: "billing", description: "Question about invoice #123" },
+27   { id: 3, type: "general", description: "What are your office hours?" },
+28   { id: 4, type: "unknown", description: "Need help with my spaceship" },
+29 ];
+30 
+31 console.log("--- Running without Chain of Responsibility Pattern ---");
+32 requestsWithoutPattern.forEach(req => {
+33   const result = processSupportRequestWithoutPattern(req);
+34   console.log(result);
+35 });
+ 
+Код з використанням шаблону
+
+1  // Тип запиту
+2  interface SupportRequest {
+3    type: "technical" | "billing" | "general" | "unknown";
+4    description: string;
+5    id: number;
+6    processedBy?: string; // Для демонстрації, хто обробив
+7  }
+8  
+9  // Інтерфейс обробника
+10 interface ISupportHandler {
+11   setNext(handler: ISupportHandler): ISupportHandler;
+12   handle(request: SupportRequest): SupportRequest | null;
+13 }
+14 
+15 // Абстрактний базовий обробник
+16 abstract class AbstractSupportHandler implements ISupportHandler {
+17   private nextHandler: ISupportHandler | null = null;
+18 
+19   public setNext(handler: ISupportHandler): ISupportHandler {
+20     this.nextHandler = handler;
+21     // Повернення handler дозволяє ланцюжкове з'єднання
+22     return handler;
+23   }
+24 
+25   public handle(request: SupportRequest): SupportRequest | null {
+26     if (this.nextHandler) {
+27       return this.nextHandler.handle(request);
+28     }
+29     return null;
+30   }
+31 }
+32 
+33 // Конкретний обробник: Технічна підтримка
+34 class TechnicalSupportHandler extends AbstractSupportHandler {
+35   public handle(request: SupportRequest): SupportRequest | null {
+36     if (request.type === "technical") {
+37       request.processedBy = "Technical Support";
+38       console.log(`Technical Support: Handling request ID ${request.id} - "${request.description}"`);
+39       return request;
+40     }
+41     return super.handle(request);
+42   }
+43 }
+44 
+45 // Конкретний обробник: Фінансова підтримка
+46 class BillingSupportHandler extends AbstractSupportHandler {
+47   public handle(request: SupportRequest): SupportRequest | null {
+48     if (request.type === "billing") {
+49       request.processedBy = "Billing Support";
+50       console.log(`Billing Support: Handling request ID ${request.id} - "${request.description}"`);
+51       return request;
+52     }
+53     return super.handle(request);
+54   }
+55 }
+56 
+57 // Конкретний обробник: Загальні питання
+58 class GeneralInquiryHandler extends AbstractSupportHandler {
+59   public handle(request: SupportRequest): SupportRequest | null {
+60     if (request.type === "general") {
+61       request.processedBy = "General Inquiry Desk";
+62       console.log(`General Inquiry: Handling request ID ${request.id} - "${request.description}"`);
+63       return request;
+64     }
+65     return super.handle(request);
+66   }
+67 }
+68 
+69 // Клієнтський код
+70 
+71 // Створення обробників
+72 const technicalSupport = new TechnicalSupportHandler();
+73 const billingSupport = new BillingSupportHandler();
+74 const generalInquiry = new GeneralInquiryHandler();
+75 
+76 // Формування ланцюжка: Technical -> Billing -> General
+77 technicalSupport.setNext(billingSupport).setNext(generalInquiry);
+78 
+79 const requestsWithPattern: SupportRequest[] = [
+80   { id: 101, type: "technical", description: "Cannot connect to WiFi" },
+81   { id: 102, type: "billing", description: "Overcharged on last bill" },
+82   { id: 103, type: "general", description: "Where is your office located?" },
+83   { id: 104, type: "unknown", description: "My cat is stuck on a tree" },
+84   { id: 105, type: "technical", description: "Software update failed" },
+85 ];
+86 
+87 console.log("\n--- Running with Chain of Responsibility Pattern ---");
+88 requestsWithPattern.forEach(req => {
+89   console.log(`\nClient: Sending request - ID ${req.id}, Type: ${req.type}, Desc: "${req.description}"`);
+90   // Запускаємо обробку з першого елемента ланцюжка
+91   const result = technicalSupport.handle(req);
+92 
+93   if (result && result.processedBy) {
+94     console.log(`  Chain Result: Request ID ${result.id} was processed by ${result.processedBy}.`);
+95   } else {
+96     console.log(`  Chain Result: Request ID ${req.id} ("${req.description}") could not be handled by any specific handler.`);
+97   }
+98 });
+
+
